@@ -9,34 +9,8 @@ if(IS_DIRECTORY ${GIT_ROOT_DIR}/.git)
         RESULT_VARIABLE res_var
         OUTPUT_VARIABLE GIT_COM_ID
     )
-    if(NOT ${res_var} EQUAL 0)
-        set(GIT_COMMIT_ID "?.?.?-unknown")
-        message(WARNING "Git failed (not a repo, or no tags). Build will not contain git revision info.")
-    endif()
-    string(REGEX REPLACE "\n$" "" GIT_COMMIT_ID ${GIT_COM_ID})
-    string(REGEX REPLACE "^v" "" GIT_COMMIT_ID ${GIT_COMMIT_ID})
-
-    # check number of digits in version string
-    string(REPLACE "." ";" GIT_COMMIT_ID_VLIST ${GIT_COMMIT_ID})
-    list(LENGTH GIT_COMMIT_ID_VLIST GIT_COMMIT_ID_VLIST_COUNT)
-
-    # no.: major
-    string(REGEX REPLACE "^v([0-9]+)\\..*" "\\1" VERSION_MAJOR "${GIT_COMMIT_ID}")
-    # no.: minor
-    string(REGEX REPLACE "^v[0-9]+\\.([0-9]+).*" "\\1" VERSION_MINOR "${GIT_COMMIT_ID}")
-
-    if(${GIT_COMMIT_ID_VLIST_COUNT} STREQUAL "2")
-        # no. patch
-        set(VERSION_PATCH "0")
-        # SHA1 string + git 'dirty' flag
-        string(REGEX REPLACE "^v[0-9]+\\.[0-9]+(.*)" "\\1" VERSION_SHA1 "${GIT_COMMIT_ID}")
-    else()
-        # no. patch
-        string(REGEX REPLACE "^v[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1" VERSION_PATCH "${GIT_COMMIT_ID}")
-        # SHA1 string + git 'dirty' flag
-        string(REGEX REPLACE "^v[0-9]+\\.[0-9]+\\.[0-9]+(.*)" "\\1" VERSION_SHA1 "${GIT_COMMIT_ID}")
-    endif()
-
+    
+    set(GIT_COMMIT_ID "1.0.0")
     set(PROJECT_VERSION "${GIT_COMMIT_ID}")
     #string(APPEND PROJECT_VERSION " (git)")
     message(STATUS "Version: ${PROJECT_VERSION} [git]")
