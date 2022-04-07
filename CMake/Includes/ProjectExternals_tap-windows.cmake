@@ -11,7 +11,7 @@ ExternalProject_Add(tap-windows
     DOWNLOAD_NO_PROGRESS 1
     DOWNLOAD_NO_EXTRACT 1
 
-    URL https://build.openvpn.net/downloads/releases/openvpn-install-2.4.12-I601-Win10.exe
+    URL https://build.openvpn.net/downloads/releases/tap-windows-9.24.2-I601-Win10.exe
 
     BUILD_IN_SOURCE 1
 
